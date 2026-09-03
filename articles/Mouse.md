@@ -5,7 +5,7 @@ date: 2026-09-03
 tags:
   - 行为分析
   - 特征工程
-thumb: assets/blog-workflow.svg
+thumb: assets/mouse.jpg
 excerpt: 基于实验小鼠的三种典型行为模式建立特征工程
 ---
 ![](assets/mouse.jpg)
