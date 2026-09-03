@@ -9,7 +9,7 @@ excerpt: 本站的每篇文章就是一个 Markdown 文件。在 Obsidian 里写
 ---
 
 纯静态主页：没有后台、没有数据库，**文章就是 Markdown 文件**。
-![](obsidian.svg)
+![](assets/obsidian.svg)
 
 *图 1：从 Obsidian 写作到 GitHub Pages 上线的完整流程*
 
