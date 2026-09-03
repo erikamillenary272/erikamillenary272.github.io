@@ -5,7 +5,7 @@ date: 2026-09-03
 tags:
   - Obsidian
 thumb: assets/obsidian.svg
-excerpt: 本站的每篇文章就是一个 Markdown 文件。在 Obsidian 里写好保存，Obsidian Git 插件自动推送到 GitHub，GitHub Actions 构建后由 Pages 发布。
+excerpt: 本站的每篇文章就是一个 Markdown 文件。在 Obsidian 里写好保存，Git 插件自动推送到 GitHub，GitHub Actions 构建后由 Pages 发布。
 ---
 
 纯静态主页：没有后台、没有数据库，**文章就是 Markdown 文件**。
@@ -22,7 +22,7 @@ excerpt: 本站的每篇文章就是一个 Markdown 文件。在 Obsidian 里写
 - `articles/*.md` 是**唯一的内容源**——每一篇 `.md` 就是一篇文章；
 - `.github/workflows/pages.yml` 是发布脚本：一旦 `main` 分支收到推送，就自动把整个仓库构建并发布为网站。
 
-Obsidian 在这里的角色是**Markdown 编辑器**：配合 Obsidian Git 插件做到「保存即推送」，写文章时完全感觉不到 git 的存在。其实不用 Obsidian 也一样——手动改 `.md` 后 `git push`，机制完全相同。
+Obsidian 在这里的角色是**Markdown 编辑器**：配合 Git 插件做到「保存即推送」，写文章时完全感觉不到 git 的存在。其实不用 Obsidian 也一样——手动改 `.md` 后 `git push`，机制完全相同。
 
 ## 二、Obsidian 准备
 
