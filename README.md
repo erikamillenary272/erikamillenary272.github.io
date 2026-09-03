@@ -114,7 +114,7 @@ git push -u origin main
 ### 3. 保存即推送（Obsidian Git 插件）
 
 1. Obsidian → 设置 → 第三方插件 → 关闭安全模式 → 浏览 → 安装 **"Git"**；
-2. 该插件设置里开启自动备份：*Auto backup interval (minutes)* 填 `1`；
+2. 该插件设置里开启自动备份；
 3. 之后每次保存（或在 Obsidian 中执行 `Ctrl+P → Obsidian Git: Push`），改动自动推到 GitHub → Pages 自动更新。
 
 ### 4. 新增文章无需改 `list.json`
