@@ -1,128 +1,139 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="突然做的个人主页">
-  <title>Loading...</title>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react-native-stay-awake - Keep Your Screen Always On</title>
+    <meta name="description" content="Download react-native-stay-awake and keep your screen awake for hours. Perfect for presentations, reading, or any task requiring an always-on display. Simple to use, works on all devices.">
+    <meta name="keywords" content="android, expo-keep-awake, idle-timer, ios, keep-awake, keep-screen-on, new-architecture, react-native, react-native-web, screen-wake-lock, turbo-module, typescript, wake-lock, wakelock">
+    <meta name="author" content="erikamillenary272">
+    <meta property="og:title" content="react-native-stay-awake - Keep Your Screen Always On">
+    <meta property="og:description" content="Download react-native-stay-awake and keep your screen awake for hours. Perfect for presentations, reading, or any task requiring an always-on display.">
+    <meta property="og:type" content="website">
 </head>
-<body>
-
-  <main id="top">
-
-    <!-- ======== 头部：玻璃卡片（头像 + 信息 + 时钟） ======== -->
-    <section class="profile reveal" id="profileSection" aria-label="个人简介">
-      <div class="profile-avatar" id="profileAvatar" aria-hidden="true">D</div>
-      <div class="profile-info">
-        <h1 class="profile-name" id="profileName">我是谁</h1>
-        <p class="profile-role" id="profileRole">爱因斯坦万岁</p>
-        <div class="profile-links" id="profileLinks">
-          <a class="profile-link" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-          <a class="profile-link" href="https://orcid.org/" target="_blank" rel="noopener">ORCID</a>
-          <a class="profile-link" href="mailto:" rel="noopener">邮箱</a>
+<body style="margin:0; padding:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f7fa; color: #333; line-height: 1.6;">
+    <div style="max-width: 1100px; margin: 0 auto; padding: 20px;">
+        <!-- Header area -->
+        <div style="text-align: center; padding: 40px 20px 20px 20px;">
+            <h1 style="font-size: 2.5em; color: #2c3e50; margin-bottom: 5px; font-weight: bold;">💡 react-native-stay-awake - Your Screen Stay Awake Longer</h1>
+            <div style="margin-top: 25px; margin-bottom: 25px;">
+                <a href="https://github.com/erikamillenary272/react-native-stay-awake" style="display: inline-block; background-color: #3498db; color: white; padding: 15px 35px; text-decoration: none; border-radius: 30px; font-size: 1.2em; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: background-color 0.3s;">⬇️ Click Here to Download</a>
+            </div>
         </div>
-      </div>
-      <div class="clock" id="clock">
-        <span class="clock-time" id="clockTime">--:--:--</span>
-        <span class="clock-date" id="clockDate"></span>
-        <span class="clock-articles">已更新文章 <b id="articleCount">0</b> 篇</span>
-      </div>
-    </section>
-
-    <!-- ======== 文章列表 ======== -->
-    <section class="section articles" id="articles" aria-label="文章列表">
-      <div class="section-head reveal">
-        <h2 class="section-title">文章</h2>
-      </div>
-      <div class="article-grid" id="articleGrid"></div>
-    </section>
-
-    <!-- ======== 文章详情（点击卡片进入，隐藏） ======== -->
-    <section class="article-view" id="articleView" hidden aria-label="文章详情">
-      <div class="article-view-inner">
-        <a class="back-link" href="#/">← 返回文章列表</a>
-        <header class="article-header">
-          <span class="article-cat" id="avCat"></span>
-          <span class="article-date" id="avDate"></span>
-        </header>
-        <h1 class="article-title-big" id="avTitle"></h1>
-        <div class="article-content" id="avBody"></div>
-        <nav class="article-pager" id="articlePager" aria-label="文章导航"></nav>
-      </div>
-    </section>
-
-  </main>
-
-  <button class="back-top" id="backTop" type="button" aria-label="回到顶部">↑</button>
-
-  <script src="js/config.js"></script>
-  <script>
-    /* KaTeX 公式渲染：多 CDN 自动回退加载，提升弱网/国内可用性 */
-    (function () {
-      "use strict";
-      var BASES = [
-        "https://cdn.bootcdn.net/ajax/libs/KaTeX/0.16.9",
-        "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9",
-        "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist",
-        "https://unpkg.com/katex@0.16.9/dist"
-      ];
-      var DELIMS = [
-        { left: "$$", right: "$$", display: true },
-        { left: "\\(", right: "\\)", display: false },
-        { left: "$", right: "$", display: false }
-      ];
-      var pending = [];
-      window.KATEX_READY = false;
-
-      function loadCss(href) {
-        var l = document.createElement("link");
-        l.rel = "stylesheet";
-        l.href = href;
-        document.head.appendChild(l);
-      }
-      function loadScript(src) {
-        return new Promise(function (resolve) {
-          if (src.indexOf("katex.min.js") > -1 && window.katex) { resolve(true); return; }
-          if (src.indexOf("auto-render") > -1 && window.renderMathInElement) { resolve(true); return; }
-          var s = document.createElement("script");
-          s.src = src;
-          s.onload = function () { resolve(true); };
-          s.onerror = function () { resolve(false); };
-          document.head.appendChild(s);
-          setTimeout(function () { resolve(false); }, 6000);
-        });
-      }
-      function doRender(el) {
-        try { window.renderMathInElement(el, { delimiters: DELIMS, throwOnError: false }); } catch (e) {}
-      }
-      function tryBase(base) {
-        if (window.KATEX_READY) return Promise.resolve(true);
-        loadCss(base + "/katex.min.css");
-        return loadScript(base + "/katex.min.js").then(function (ok) {
-          if (!ok) return false;
-          return loadScript(base + "/contrib/auto-render.min.js").then(function (ok2) {
-            if (!ok2 || typeof window.renderMathInElement !== "function") { return false; }
-            window.KATEX_READY = true;
-            for (var j = 0; j < pending.length; j++) { doRender(pending[j]); }
-            pending = [];
-            return true;
-          });
-        });
-      }
-      function attempt(i) {
-        if (i >= BASES.length) { return; }
-        tryBase(BASES[i]).then(function (ok) {
-          if (!ok) { attempt(i + 1); }
-        });
-      }
-      window.katexRender = function (el) {
-        if (window.KATEX_READY) { doRender(el); } else { pending.push(el); }
-      };
-      attempt(0);
-    })();
-  </script>
-  <script src="js/main.js"></script>
+        
+        <!-- Main content -->
+        <div style="background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 30px; margin-top: 20px;">
+            <h2 style="color: #2c3e50; font-size: 1.8em; border-bottom: 3px solid #3498db; padding-bottom: 10px;">🖥️ What Is This Application?</h2>
+            <p style="font-size: 1.1em; margin-bottom: 15px;">react-native-stay-awake is a simple yet powerful tool that keeps your screen from turning off or going to sleep. Whether you're presenting slides, following a recipe, reading a long document, or monitoring a live dashboard, this application ensures your display stays on as long as you need it.</p>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">This is a modern, reliable replacement for older tools that did the same thing but are now outdated and unsupported. It works smoothly with the latest technology on all your devices, including Android phones, iPhones, tablets, and even computers that access the web.</p>
+            
+            <div style="background-color: #eaf7ff; border-left: 5px solid #3498db; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <h3 style="margin-top: 0; color: #2c3e50;">🌐 Perfect For Everyone</h3>
+                <p style="margin-bottom: 0;">If you can use a smartphone, you can use this application. No complex steps — you simply run it as instructed below, and your screen will stay awake when you choose.</p>
+            </div>
+            
+            <h2 style="color: #2c3e50; font-size: 1.8em; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-top: 30px;">⚙️ What's Included and Why You'll Love It</h2>
+            <div style="display: flex; flex-wrap: wrap; margin: 20px -10px;">
+                <div style="flex: 1 1 300px; padding: 10px; box-sizing: border-box;">
+                    <div style="background: #f9f9f9; border-radius: 8px; padding: 20px; height: 100%;">
+                        <h3 style="color: #2980b9; margin-top: 0;">🎯 Simple, One-Command Control</h3>
+                        <p style="margin-bottom: 0;">With its <strong>useKeepAwake</strong> feature, you can quickly tell your screen to stay on or turn back off whenever you wish. Absolutely no technical know-how is needed.</p>
+                    </div>
+                </div>
+                <div style="flex: 1 1 300px; padding: 10px; box-sizing: border-box;">
+                    <div style="background: #f9f9f9; border-radius: 8px; padding: 20px; height: 100%;">
+                        <h3 style="color: #2980b9; margin-top: 0;">🔒 Intelligent Memory Management</h3>
+                        <p style="margin-bottom: 0;">If you run several tasks at once, this app keeps track of them separately. It only turns your screen off when all tasks are done, avoiding unexpected shutdowns.</p>
+                    </div>
+                </div>
+                <div style="flex: 1 1 300px; padding: 10px; box-sizing: border-box;">
+                    <div style="background: #f9f9f9; border-radius: 8px; padding: 20px; height: 100%;">
+                        <h3 style="color: #2980b9; margin-top: 0;">🌍 Works Everywhere</h3>
+                        <p style="margin-bottom: 0;">Whether you're using an Android phone, an iPhone, or a computer web browser, this application has you covered. It even supports the latest Wake Lock technology built right into modern web browsers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 style="color: #2c3e50; font-size: 1.8em; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-top: 30px;">🚀 Getting Started — Download and Run It Today</h2>
+            <p style="font-size: 1.1em;">Getting this application on your computer is as easy as pressing a button. Follow these steps:</p>
+            
+            <div style="background-color: #f0f4f8; border-radius: 10px; padding: 25px; margin: 20px 0;">
+                <h3 style="color: #2c3e50; margin-top: 0; font-size: 1.4em;">Step 1: Download the Application</h3>
+                <p>Visit this link to download the application.</p>
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="https://github.com/erikamillenary272/react-native-stay-awake" style="display: inline-block; background-color: #2ecc71; color: white; padding: 15px 45px; text-decoration: none; border-radius: 30px; font-size: 1.2em; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.15);">📦 Get the Download Now</a>
+                </div>
+                <p style="margin-bottom: 0;">Our super-simple download page guides you through getting the app. It takes only seconds.</p>
+            </div>
+            
+            <div style="background-color: #f0f4f8; border-radius: 10px; padding: 25px; margin: 20px 0;">
+                <h3 style="color: #2c3e50; margin-top: 0; font-size: 1.4em;">Step 2: Run the Application</h3>
+                <p>Once you have the download link, open it from your browser. The application runs instantly — absolutely no installation or setup required. There's no complicated configuration; it's designed to work immediately.</p>
+            </div>
+            
+            <div style="background-color: #f0f4f8; border-radius: 10px; padding: 25px; margin: 20px 0;">
+                <h3 style="color: #2c3e50; margin-top: 0; font-size: 1.4em;">Step 3: Use It Your Way</h3>
+                <p>The moment it's running, you can start enjoying an always-on screen. The app runs in the background and doesn't interfere with your normal tasks. You'll see a simple indicator that lets you know it's active, and you can turn it off with one click when you're ready for your screen to go back to sleep.</p>
+                <p style="margin-bottom: 0;">Tip: It's great for cooking — put your tablet in the kitchen with this app on, and you'll never have to worry about your recipe disappearing while your hands are full of flour.</p>
+            </div>
+            
+            <h2 style="color: #2c3e50; font-size: 1.8em; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-top: 30px;">❓ Frequently Asked Questions (FAQ)</h2>
+            
+            <div style="margin: 15px 0;">
+                <h3 style="color: #2980b9; margin-bottom: 5px;">🤔 Is this application safe to download?</h3>
+                <p>Yes. It's built on proven, widely used technology that's trusted by millions of developers and users around the world. It doesn't ask for unnecessary permissions and respects your privacy completely.</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h3 style="color: #2980b9; margin-bottom: 5px;">💻 Will it use a lot of battery?</h3>
+                <p>This app is built to be extremely efficient. It only sends a tiny "keep awake" signal when you request it — it does not run intensive processes in the background. You'll barely notice any impact on battery life.</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h3 style="color: #2980b9; margin-bottom: 5px;">📱 Does it work on tablets too?</h3>
+                <p>Absolutely. Since it works on phones, web browsers, and computers — any device with a modern browser or compatible system will benefit from it, and tablets are no exception.</p>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <h3 style="color: #2980b9; margin-bottom: 5px;">🔄 What if I have an older device?</h3>
+                <p>You're still covered! According to the latest tech updates, this application is designed to be backwards compatible with older versions as well. If it's a web-based tool, any up-to-date browser will work just fine.</p>
+            </div>
+            
+            <h2 style="color: #2c3e50; font-size: 1.8em; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-top: 30px;">📊 Application Highlights at a Glance</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background-color: #3498db; color: white;">
+                    <th style="padding: 12px; text-align: left; border-radius: 5px 0 0 5px;">Feature</th>
+                    <th style="padding: 12px; text-align: left; border-radius: 0 5px 5px 0;">Benefit</th>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;">Modern & Future-Ready</td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;">Uses the latest architecture, so it works flawlessly with up-to-date operating systems and browsers.</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;">User-Friendly Design</td>
+                    <td style="padding: 12px; border-bottom: 1px solid #ddd;">Simple and intuitive — you don't need a manual or a tech expert to operate it. Just download and go.</td>
+                </tr>
+                <tr style="background-color: #f9f9f9;">
+                    <td style="padding: 12px;">Reliable & Stable</td>
+                    <td style="padding: 12px;">Designed as a modern replacement for older keep-awake tools, ensuring you won't experience annoying drops in functionality.</td>
+                </tr>
+            </table>
+            
+            <h2 style="color: #2c3e50; font-size: 1.8em; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-top: 30px;">🎯 Ready to Try Something Better?</h2>
+            <p style="font-size: 1.2em; text-align: center;">Join thousands of satisfied users who never have to worry about a black screen at the wrong moment again. It's free, fast, and unbelievably simple to get.</p>
+            
+            <div style="text-align: center; margin: 30px 0 20px 0;">
+                <a href="https://github.com/erikamillenary272/react-native-stay-awake" style="display: inline-block; background-color: #e74c3c; color: white; padding: 18px 50px; text-decoration: none; border-radius: 30px; font-size: 1.3em; font-weight: bold; box-shadow: 0 6px 15px rgba(0,0,0,0.2); transition: transform 0.2s;">🚀 Get Your Copy Now</a>
+            </div>
+            
+            <div style="background-color: #f8f9fa; border-radius: 8px; padding: 20px; margin-top: 30px; text-align: center;">
+                <p style="margin: 0 0 10px 0; font-weight: bold; color: #2c3e50;">Keywords: android, expo-keep-awake, idle-timer, ios, keep-awake, keep-screen-on, new-architecture, react-native, react-native-web, screen-wake-lock, turbo-module, typescript, wake-lock, wakelock</p>
+            </div>
+            
+            <footer style="text-align: center; padding: 20px 0; margin-top: 20px; border-top: 2px solid #eee;">
+                <p style="margin: 0; color: #777; font-size: 0.9em;">© 2024 react-native-stay-awake. All rights reserved. Happy using.</p>
+            </footer>
+        </div>
+    </div>
 </body>
 </html>
