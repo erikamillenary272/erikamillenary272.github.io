@@ -400,7 +400,24 @@
         setText("avDate", formatDate(meta.date));
 
         // 详情页顶部不再单独放封面横幅；正文里的图片照常在正文显示
-        document.getElementById("avBody").innerHTML = renderMarkdown(body);
+        var avBody = document.getElementById("avBody");
+        avBody.innerHTML = renderMarkdown(body);
+
+        // 使用 KaTeX 渲染正文中的 LaTeX 公式（$...$ 与 $$...$$）
+        if (typeof renderMathInElement === "function") {
+          try {
+            renderMathInElement(avBody, {
+              delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "$", right: "$", display: false }
+              ],
+              throwOnError: false
+            });
+          } catch (e) {
+            // 个别公式解析失败时保留原始文本，不影响整篇文章展示
+          }
+        }
 
         var idx = -1;
         for (var k = 0; k < loadedArticles.length; k++) {
