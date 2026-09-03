@@ -27,8 +27,8 @@ Obsidian 在这里的角色是**Markdown 编辑器**：配合 Obsidian Git 插�
 ## 二、Obsidian 准备
 
 1. 打开 Obsidian → **Open folder as vault**，选择本仓库下的 `articles/` 文件夹（本身就是一个配好的库；`.obsidian` 配置已被 `.gitignore` 忽略，不会污染仓库）。
-2. 设置 → 第三方插件 → 关闭安全模式 → 浏览，搜索安装 **Obsidian Git**。
-3. 在该插件设置里把 *Auto commit-and-sync interval (minutes)* 填 `1`，并勾选 *Push on commit*——此后每次 `Ctrl+S` 保存，插件都会自动 commit 并 push。
+2. 设置 → 第三方插件 → 关闭安全模式 → 浏览，搜索安装 **Git**。
+3. 在该插件设置里把 *Auto commit-and-sync interval (minutes)* 填上适合的时间间隔，此后每次 `Ctrl+S` 保存，插件都会自动 commit 并 push。
 
 > 提示：Obsidian Git 只是在仓库里执行 git 命令，所以仓库需先完成首次 `git remote add origin` 并推送过；本机也要有 GitHub 的登录凭证。第一次手动推成功后，之后才谈得上全自动。
 
