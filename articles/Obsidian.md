@@ -30,7 +30,7 @@ Obsidian 在这里的角色是**Markdown 编辑器**：配合 Git 插件做到�
 2. 设置 → 第三方插件 → 关闭安全模式 → 浏览，搜索安装 **Git**。
 3. 在该插件设置里把 *Auto commit-and-sync interval (minutes)* 填上适合的时间间隔，此后每次 `Ctrl+S` 保存，插件都会自动 commit 并 push。
 
-> 提示：Obsidian Git 只是在仓库里执行 git 命令，所以仓库需先完成首次 `git remote add origin` 并推送过；本机也要有 GitHub 的登录凭证。第一次手动推成功后，之后才谈得上全自动。
+> 提示：Git 只是在仓库里执行 git 命令，所以仓库需先完成首次 `git remote add origin` 并推送过；本机也要有 GitHub 的登录凭证。第一次手动推成功后，之后才谈得上全自动。
 
 ## 三、文章
 
@@ -91,7 +91,7 @@ thumb: assets/小图.png    # 卡片右上角小封面，约 4:3（可选）
 ## 六、实操
 
 1. 在 `articles/` 下新建 `xxx.md`，照第三节的模板填好元信息、写好正文；
-2. `Ctrl+S` 保存——Obsidian Git 自动 commit + push（没开自动备份的话，就 `Ctrl+P` 执行 `Obsidian Git: Push`）；
+2. `Ctrl+S` 保存——Git 自动 commit + push（没开自动备份的话，就 `Ctrl+P` 执行 `Obsidian Git: Push`）；
 3. 等 GitHub Actions 把 `pages.yml` 跑完，刷新本站即可看到新文章；
 4. 想改就再编辑一次再保存；想下线就删掉 `.md`。历史版本都在 git 里，随时可回退。
 
