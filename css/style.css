@@ -655,6 +655,14 @@ img {
   margin: 1.6em 0;
 }
 
+/* KaTeX 公式：过长时允许横向滚动，避免撑破或超出正文容器 */
+.article-content .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 2px;
+}
+
 /* 上一篇 / 下一篇 */
 .article-pager {
   display: flex;
