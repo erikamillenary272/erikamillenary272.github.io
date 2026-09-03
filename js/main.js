@@ -404,25 +404,9 @@
         avBody.innerHTML = renderMarkdown(body);
 
         // 使用 KaTeX 渲染正文中的 LaTeX 公式（$...$ 与 $$...$$）
-        // 通过 window.katexRender 走多 CDN 自动回退加载，未就绪时等待加载完成再渲染
+        // window.katexRender 由 index.html 内联加载器提供（多 CDN 自动回退，未就绪时排队等待）
         if (typeof window.katexRender === "function") {
           window.katexRender(avBody);
-        } else {
-          // 兜底：若加载器未定义，则直接尝试全局 renderMathInElement
-          if (typeof renderMathInElement === "function") {
-            try {
-              renderMathInElement(avBody, {
-                delimiters: [
-                  { left: "$$", right: "$$", display: true },
-                  { left: "\\(", right: "\\)", display: false },
-                  { left: "$", right: "$", display: false }
-                ],
-                throwOnError: false
-              });
-            } catch (e) {
-              // 个别公式解析失败时保留原始文本，不影响整篇文章展示
-            }
-          }
         }
 
         var idx = -1;
