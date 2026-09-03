@@ -16,9 +16,6 @@ excerpt: 基于实验小鼠的三种典型行为模式建立特征工程。
 ## 一、FaceGrooming (面部理毛 / 洗脸)
 
 * 前爪在鼻子和面部附近进行高频、小幅度的相对揉搓。
-	1.  **部位：** 前爪 ($fp$)、鼻子 ($nose$)。
-	2.  **空间：** 靠近面部，距离短
-	3.  **运动：** 高频、小幅度揉搓，速度变化大
 
 *   **数学建模：**
     $$ \Phi_{FaceGroom} = \frac{Var_W(\mathbf{v}_{fp})}{\mu_W(D_{nose,fp}) + \epsilon} $$
@@ -31,15 +28,11 @@ excerpt: 基于实验小鼠的三种典型行为模式建立特征工程。
 ## 二、BodyGrooming (身体理毛)
 
 * 嘴/前爪触及腹部、侧肋或尾根，脊柱呈极大的弯曲。
-*   **核心：**
-	    1.  **姿态：** 脊柱极度弯曲。
-	    2.  **空间：** 嘴/鼻子靠近尾根（身体蜷缩）。
 
 *   **数学建模：**
     $$ \Phi_{BodyGroom} = \left(\cos \theta_{spine}(t) - \min_T \cos \theta_{spine}\right) \times \exp\left(-\lambda \frac{D_{nose,tail\_base}(t)}{\hat{L}_{body}}\right) $$
 
-    *   **乘号左侧（姿态）：$\left(\cos \theta_{spine}(t) - \min_T \cos \theta_{spine}\right)$**
-        *   $\theta_{spine}(t)$ 是当前时刻的脊柱角度。$\min_T$ 是一段长周期内的最小余弦值（对应小鼠拉伸最直的基准状态）。
+    *   **乘号左侧（姿态）**： $\theta_{spine}(t)$ 是当前时刻的脊柱角度。$\min_T$ 是一段长周期内的最小余弦值（对应小鼠拉伸最直的基准状态）。
         *   这一项用来衡量当前脊柱弯曲程度相对于该小鼠极值状态的**相对形变**。当小鼠弯曲身体时，这一项会产生较大的正向响应。
     *   **乘号右侧（空间接近度）：$\exp\left(-\lambda \frac{D_{nose,tail\_base}(t)}{\hat{L}_{body}}\right)$**
         *   $D_{nose,tail\_base}$ 是鼻子到尾根的距离。$\hat{L}_{body}$ 是小鼠的平均体长（用于**归一化**，消除不同体型小鼠的差异）。
